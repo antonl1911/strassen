@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
     DYN_ARRAY(a, n);
     DYN_ARRAY(b, n);
     DYN_ARRAY(mul, n);
-    DYN_ARRAY(res, n);
     if (input_read(n, a, b)) {
         fprintf(stderr, "Error reading input data!\n");
         ret = EXIT_FAILURE;
@@ -44,8 +43,7 @@ int main(int argc, char *argv[])
     }
 
     strassen_mul(n, a, b, mul);
-    sum(n, a, mul, res);
-    print_matrix(n, res);
+    print_matrix(n, mul);
 end:
     free(a);
     free(b);
