@@ -4,7 +4,7 @@ all: strassen test
 strassen: strassen.c strassen.h
 	$(CC) $(CFLAGS) $< -o $@
 test: strassen
-	time ./$< 1000 < test/1000.in > result
+	time ./$< 2000 < test/2000.in > result
 release: strassen.c strassen.h test/1000.in Makefile README.md
 	zip -9 strassen.zip $^ 
 clean:

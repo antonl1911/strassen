@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 {
     int ret = EXIT_SUCCESS;
     if (argc < 2) {
-        fprintf(stderr, "Usage: %s N <filename>, where N is size of input matrices\n", argv[0]);
+        fprintf(stderr, "Usage: %s N T < input.in > result.out, where N is size of input matrices, T is strassen threshold\n", argv[0]);
         return EXIT_FAILURE;
     }
     size_t n = atoi(argv[1]);
