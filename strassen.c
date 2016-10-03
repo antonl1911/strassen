@@ -48,7 +48,6 @@ end:
     free(a);
     free(b);
     free(mul);
-    free(res);
     return ret;
 }
 
