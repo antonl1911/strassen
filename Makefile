@@ -6,7 +6,7 @@ CXXFLAGS = $(FLAGS) -std=c++14
 all: strassen strassen_cpp
 strassen: strassen.c strassen.h
 	$(CC) $(CFLAGS) $< -o $@
-strassen_cpp: strassen-algorithm.cpp
+strassen_cpp: strassen.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 test: strassen
 	time ./$< 2000 < test/2000.in > result
