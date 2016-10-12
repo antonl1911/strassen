@@ -3,8 +3,7 @@
 #include <vector>
 
 template <class element_type>
-class MatrixVA {
-public:
+struct MatrixVA {
     MatrixVA(const size_t n):m_size(n) {
 	m_storage.resize(n*n);
     }
@@ -74,7 +73,6 @@ public:
 	return m_storage[row * m_size + col];
     }
 
-private:
     std::valarray<element_type> m_storage;
     size_t m_size;
 };

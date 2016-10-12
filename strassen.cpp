@@ -37,16 +37,23 @@ Matrix strassenR(Matrix &A, Matrix &B, const int tam)
 	    c12(newTam), c21(newTam), c22(newTam);
 
     // dividing the matrices in 4 sub-matrices:
-    for (int i = 0; i < newTam; i++) {
-	for (int j = 0; j < newTam; j++) {
-	    a12(i, j) = A(i, j + newTam);
-	    a21(i, j) = A(i + newTam, j);
-	    a22(i, j) = A(i + newTam, j + newTam);
 
-	    b12(i, j) = B(i, j + newTam);
-	    b21(i, j) = B(i + newTam, j);
-	    b22(i, j) = B(i + newTam, j + newTam);
-	}
+    for (int i = 0; i < newTam; i++) {
+	    const int start = i*newTam;
+	    a12.m_storage[slice(start, newTam, 1)] =
+		    A.m_storage[slice(i*tam+newTam, newTam, 1)];
+	    a21.m_storage[slice(start, newTam, 1)] =
+		    A.m_storage[slice((i+newTam)*tam,  newTam, 1)];
+	    a22.m_storage[slice(start, newTam, 1)] =
+		    A.m_storage[slice((i+newTam)*tam + newTam, newTam, 1)];
+
+	    b12.m_storage[slice(start, newTam, 1)] =
+		    B.m_storage[slice(i*tam+newTam, newTam, 1)];
+	    b21.m_storage[slice(start, newTam, 1)] =
+		    B.m_storage[slice((i+newTam)*tam, newTam, 1)];
+	    b22.m_storage[slice(start, newTam, 1)] =
+		    B.m_storage[slice((i+newTam)*tam + newTam, newTam, 1)];
+
     }
 
     // Calculating p1 to p7:
@@ -76,11 +83,12 @@ Matrix strassenR(Matrix &A, Matrix &B, const int tam)
     // Grouping the results obtained in a single matrix:
     Matrix C = Matrix(tam, p1 + p7 + p4 - p5); // c11 = p1 + p4 - p5 + p7
     for (int i = 0; i < newTam ; i++) {
-	for (int j = 0 ; j < newTam ; j++) {
-	    C(i, j + newTam) = c12(i, j);
-	    C(i + newTam, j) = c21(i, j);
-	    C(i + newTam, j + newTam) = c22(i, j);
-	}
+	    C.m_storage[slice(i*tam+newTam, newTam, 1)] =
+		    c12.m_storage[slice(i*newTam, newTam, 1)];
+	    C.m_storage[slice((i+newTam)*tam, newTam, 1)] =
+		    c21.m_storage[slice(i*newTam, newTam, 1)];
+	    C.m_storage[slice((i+newTam)*tam+newTam, newTam, 1)] =
+		    c22.m_storage[slice(i*newTam, newTam, 1)];
     }
     return C;
 }
