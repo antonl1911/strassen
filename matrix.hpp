@@ -12,6 +12,7 @@ public:
 	m_storage.resize(n*n);
 	m_storage = val;
     }
+    // Accurate copy constructor
     MatrixVA(const size_t n, const MatrixVA& from):m_size(n) {
 	m_storage.resize(n*n);
 	const size_t from_size = from.m_size;
@@ -19,13 +20,12 @@ public:
 	    m_storage = from.m_storage;
 	}
 	else {
-	    int to = std::min(n, from_size);
+	    const int to = std::min(n, from_size);
 	    for (int i = 0; i < to; i++)
 		for (int j = 0; j < to; j++)
 		    m_storage[i*n + j] = from.m_storage[i*from_size + j];
 	}
     }
-
 
     MatrixVA<element_type>& operator+=(const MatrixVA<element_type> &rhs)
     {

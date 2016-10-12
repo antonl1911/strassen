@@ -1,7 +1,13 @@
 PROFILE = -fno-omit-frame-pointer -ggdb
+CLANG_LIBC = -stdlib=libc++ 
 FLAGS = -O3 -march=native -lm -Wall $(PROFILE)
 CFLAGS = $(FLAGS) -std=c11
-CXXFLAGS = $(FLAGS) -std=c++14
+CXXFLAGS = $(FLAGS) -std=c++14 -fno-exceptions -fno-rtti
+
+ifeq ($(CXX), clang++)
+	CXXFLAGS += -stdlib=libc++
+endif
+
 .PHONY: clean test
 all: strassen strassen_cpp
 strassen: strassen.c strassen.h
